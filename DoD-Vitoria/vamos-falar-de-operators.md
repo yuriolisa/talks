@@ -2,7 +2,7 @@
 
 Os operators são extensões de software para Kubernetes que fazem uso de custom resources para gerenciar aplicações e seus componentes. Os operadores seguem os princípios da Kubernetes,como o control loop. (source: https://kubernetes.io/docs/concepts/extend-kubernetes/operator/)
 
-Ao final dessa talk você vai aprender os conceitos para criar o seu próprio operator e deixar sua aplicação Statefulset no Autopilot.
+Ao final dessa talk você terá aprendido como o Kubernetes gerencia um aplicação Stateless, Stateful com e sem operator, além de absover os conceitos para criar o seu próprio operator e deixar sua aplicação Statefulset no Autopilot.
 
 # Como funciona Stateless Application com o control Loop?
 
