@@ -1,6 +1,6 @@
-# Vamos falar de Operadores?
+# Vamos falar de Operators?
 
-Os operadores são extensões de software para Kubernetes que fazem uso de custom resources para gerenciar aplicações e seus componentes. Os operadores seguem os princípios da Kubernetes,como o control loop. (source: https://kubernetes.io/docs/concepts/extend-kubernetes/operator/)
+Os operators são extensões de software para Kubernetes que fazem uso de custom resources para gerenciar aplicações e seus componentes. Os operadores seguem os princípios da Kubernetes,como o control loop. (source: https://kubernetes.io/docs/concepts/extend-kubernetes/operator/)
 
 Ao final dessa talk você vai aprender os conceitos para criar o seu próprio operator e deixar sua aplicação Statefulset no Autopilot.
 
@@ -8,7 +8,7 @@ Ao final dessa talk você vai aprender os conceitos para criar o seu próprio op
 
 Imagine que você criou um deployment com 5 réplicas, caso você deseje escale essas réplicas para 7, o processo responsável por checar se o estado deseja foi alcançandou não e que medidas devem ser tomas, chama-se control loop.
 
-![control loop](controlloop.png?raw=true "Control Loop")
+![control loop](https://raw.githubusercontent.com/yuriolisa/talks/main/DoD-Vitoria/controlloop.png)
 
 # Como funciona Stateful Application sem Operators?
 
@@ -32,34 +32,38 @@ Vou deixar aqui dois frameworks que vocês poderão utilizar para começar a dar
 
 # Operator SDK. 
 
-![operator sdk](operator_logo_sdk_color.svg?raw=true "Operator SDK")
+![operator sdk](https://raw.githubusercontent.com/yuriolisa/talks/main/DoD-Vitoria/operator_logo_sdk_color.svg)
 
+Operator SDK é um componente pertencente ao conjunto do [Operator Framework][of-home] que vai nos possibilitar a iniciar a criação dos operators de uma forma fácil. Ela utiliza a biblioteca do container-runtime provendo ferramentas para a abstração da lógica operacional envolvida no Operator.
 
-- O que são Operadores?
-  - Definição.
-  - Casos de Uso.
+![operator sdk](operator-sdk.png)
 
-- Stateless Application.
-  - Definição com imagem.
+Uma vez instalado, precisamos definir se vamos criar um Operator com base em Helm, Ansible ou Go:
 
-- Stateful Application sem Operator.
-  - Definição com imagem e mostrando as dores.
+![operator sdk](operator-capability-level.png)
 
-- Stateful Application com Operator.
-  - Definição com imagem e mostrando as soluções.
+- Níveis de maturidade de um Operator: 
+  - Nível 1 : Instalação Básica.
+    - O seu operator é capaz de ser instalado e configurado a partir da sua definifição de CRD.
 
-- Os 5 níveis de automação dos Operators.
+  - Nível 2 : Atualização contínua.
+    - A atualização deve ser o mais fácil possível, identificando o que foi ou não atualizado durante um upgrade.
 
-- Bases de um operator: Helm, Ansible, Go.
+  - Nível 3 : Full Lifecycle. 
+    - Deve ser possível realizar operações de Backup e Restore dos resources a partir do Operator sem intervenção manual.
 
-- Operator SDK.
+  - Nível 4 : Métricas Definidas e Expostas.
+    - O operator deve expor métricas sobre seu status e performance atuais.
+  
+  - Nível 5 : Piloto Automático.
+    - É o último nível que visa reduzir ao máximo a intervenção manual sobre o operator, entregando automações como: Auto-scaling, Auto-Healing, Auto-tuning, Detecção de anomalias.
 
-- OLM - Operator Lifecycle Manager
+# Criação do Scaffold do Operator MyApp.
 
-- Estrutura do CRD.
+``````
+operator-sdk init --domain example.com --repo github.com/example/memcached-operator
 
-- Estrutura do Controller.
+operator-sdk create api --group cache --version v1alpha1 --kind Memcached --resource --controller
+``````
 
-- Abordagem do controller com o Kubernetes API Server.
-
-- Exemplo MyApp ao Vivo.
+[of-home]: https://github.com/operator-framework
