@@ -1,0 +1,1 @@
+# A sua aplicação Statefulset está no Autopilot?
